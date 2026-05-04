@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
 
-if (!process.env.MONGO_DB) {
-  throw new Error("MONGO_DB is not set in environment variables");
-}
-
 const MONGO_URI = process.env.MONGO_DB;
 
 let cached = (global as any).mongoose;
@@ -13,6 +9,10 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (!MONGO_URI) {
+    throw new Error("MONGO_DB is not set in environment variables");
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
