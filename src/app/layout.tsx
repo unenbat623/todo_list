@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Oswald, Playfair_Display, Roboto_Mono, Manrope, Montserrat, Lora } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { PWARegistration } from "@/components/pwa-registration";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter", display: "swap" });
 const oswald = Oswald({ subsets: ["latin", "cyrillic"], variable: "--font-oswald", display: "swap" });
@@ -14,6 +15,12 @@ const lora = Lora({ subsets: ["latin", "cyrillic"], variable: "--font-lora", dis
 export const metadata: Metadata = {
   title: "Todo App",
   description: "A premium full-stack Todo app with theme switching",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Todo App",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +34,7 @@ export default function RootLayout({
         className={`${inter.variable} ${oswald.variable} ${playfair.variable} ${robotoMono.variable} ${manrope.variable} ${montserrat.variable} ${lora.variable} antialiased`}
       >
         <Providers>
+          <PWARegistration />
           {children}
         </Providers>
       </body>
