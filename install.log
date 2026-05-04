@@ -1,0 +1,12 @@
+npm ERR! code ENOTFOUND
+npm ERR! syscall getaddrinfo
+npm ERR! errno ENOTFOUND
+npm ERR! network request to https://registry.npmjs.org/@neondatabase%2fserverless failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org
+npm ERR! network This is a problem related to network connectivity.
+npm ERR! network In most cases you are behind a proxy or have bad network settings.
+npm ERR! network 
+npm ERR! network If you are behind a proxy, please make sure that the
+npm ERR! network 'proxy' config is set properly.  See: 'npm help config'
+
+npm ERR! Log files were not written due to an error writing to the directory: /Users/t_u/.npm/_logs
+npm ERR! You can rerun the command with `--loglevel=verbose` to see the logs in your terminal
