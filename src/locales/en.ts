@@ -21,5 +21,8 @@ export const en = {
     hasAccount: "Already have an account?",
     creatingAccount: "Creating account...",
     signingIn: "Signing in...",
+  },
+  themes: {
+    info: "Choose a theme that matches your vibe. All settings are saved to your profile and sync across devices.",
   }
 };

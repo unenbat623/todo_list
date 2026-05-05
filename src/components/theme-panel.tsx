@@ -53,41 +53,44 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
   return (
     <>
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
+        className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] transition-opacity"
         onClick={onClose}
       />
-      <div className="fixed top-0 right-0 h-full w-full sm:max-w-sm bg-[var(--surface)] border-l z-[60] shadow-2xl p-6 flex flex-col gap-6 animate-in slide-in-from-right duration-300">
+      <div className="fixed bottom-0 sm:top-0 right-0 h-[85vh] sm:h-[100dvh] w-full sm:max-w-sm bg-[var(--surface)] border-t sm:border-l z-[110] shadow-2xl p-5 sm:p-6 flex flex-col gap-5 sm:gap-6 animate-in slide-in-from-bottom sm:slide-in-from-right duration-300 rounded-t-[2rem] sm:rounded-t-none">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold">{t("common.themes")}</h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <div className="space-y-0.5">
+            <h2 className="text-xl font-bold">{t("common.themes")}</h2>
+            <p className="text-[10px] text-[var(--muted)] uppercase tracking-widest font-bold">Customize your experience</p>
+          </div>
+          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full bg-[var(--surface2)]">
             <X size={20} />
           </Button>
         </div>
 
-        <div className="flex-1 overflow-y-auto pr-2 -mr-2">
-          <div className="grid grid-cols-2 gap-4 pb-4">
+        <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar">
+          <div className="grid grid-cols-2 gap-3 pb-6">
             {THEMES.map((t) => (
               <button
                 key={t.id}
                 onClick={() => handleThemeSelect(t.id)}
                 className={cn(
-                  "group relative aspect-[4/3] rounded-lg border-2 p-3 text-left transition-all overflow-hidden",
-                  theme === t.id ? "border-[var(--accent)]" : "border-transparent hover:border-[var(--border-hover)]"
+                  "group relative aspect-[1.1] rounded-2xl border-2 p-3 text-left transition-all active:scale-95",
+                  theme === t.id ? "border-[var(--accent)] ring-2 ring-[var(--accent)] ring-offset-2 ring-offset-[var(--surface)]" : "border-transparent bg-[var(--surface2)]/50 hover:border-[var(--border-hover)]"
                 )}
-                style={{ backgroundColor: t.bg, borderRadius: "var(--radius)" }}
+                style={{ backgroundColor: t.bg }}
               >
                 <div className="flex flex-col justify-between h-full">
                   <span 
-                    className="text-xs font-bold uppercase tracking-wider"
-                    style={{ color: ['noir', 'neon', 'grape', 'midnight', 'forest', 'cyber'].includes(t.id) ? 'white' : 'black' }}
+                    className="text-[10px] font-black uppercase tracking-tighter"
+                    style={{ color: ['noir', 'neon', 'grape', 'midnight', 'forest', 'cyber'].includes(t.id) ? 'white' : 'black', opacity: 0.8 }}
                   >
                     {t.name}
                   </span>
                   <div 
-                    className="w-6 h-6 rounded-full border shadow-sm flex items-center justify-center"
+                    className="w-7 h-7 rounded-full border-2 border-white/20 shadow-lg flex items-center justify-center self-end"
                     style={{ backgroundColor: t.accent }}
                   >
-                    {theme === t.id && <Check size={12} className="text-white" />}
+                    {theme === t.id && <Check size={14} className={['noir', 'cyber', 'midnight'].includes(t.id) ? "text-black" : "text-white"} strokeWidth={3} />}
                   </div>
                 </div>
               </button>
@@ -95,9 +98,9 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
           </div>
         </div>
 
-        <div className="mt-auto p-4 bg-[var(--surface2)] rounded-lg border">
-          <p className="text-xs text-[var(--muted)] leading-relaxed">
-            Choose a theme that matches your vibe. All settings are saved to your profile and sync across devices.
+        <div className="p-4 bg-[var(--surface2)]/50 rounded-2xl border border-[var(--border-color)]">
+          <p className="text-[11px] text-[var(--muted)] leading-relaxed font-medium">
+            {t("themes.info") || "Choose a theme that matches your vibe. All settings are saved to your profile and sync across devices."}
           </p>
         </div>
       </div>
