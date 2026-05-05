@@ -3,6 +3,7 @@ import { Inter, Oswald, Playfair_Display, Roboto_Mono, Manrope, Montserrat, Lora
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { PWARegistration } from "@/components/pwa-registration";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter", display: "swap" });
 const oswald = Oswald({ subsets: ["latin", "cyrillic"], variable: "--font-oswald", display: "swap" });
@@ -50,6 +51,7 @@ export default function RootLayout({
       >
         <Providers>
           <PWARegistration />
+          <PWAInstallPrompt />
           {children}
         </Providers>
       </body>
