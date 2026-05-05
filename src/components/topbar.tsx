@@ -60,7 +60,7 @@ export function Topbar() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: "/login" })}
           className="hover:bg-red-500/10 text-red-500 w-8 h-8 md:w-10 md:h-10 rounded-full transition-all hover:-translate-y-0.5 active:scale-90"
         >
           <LogOut size={18} />

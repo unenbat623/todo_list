@@ -36,6 +36,10 @@ export default function Dashboard() {
   const fetchTodos = async () => {
     try {
       const res = await fetch("/api/todos");
+      if (res.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
       const data = await res.json();
       setTodos(Array.isArray(data) ? data : []);
     } catch (error) {

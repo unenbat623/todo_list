@@ -38,13 +38,22 @@ export function PWAInstallPrompt() {
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === "accepted") {
-      setIsVisible(false);
+    if (!deferredPrompt) {
+      alert("Installation is not fully supported in this browser. Try opening the site in Chrome or Safari, then use the browser menu to 'Add to Home Screen'.");
+      return;
     }
-    setDeferredPrompt(null);
+    
+    try {
+      await deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setIsVisible(false);
+      }
+      setDeferredPrompt(null);
+    } catch (error) {
+      console.error("Install prompt failed", error);
+      alert("Please use your browser's menu (⋮) and select 'Add to Home Screen' or 'Install App' manually.");
+    }
   };
 
   if (!isVisible) return null;
