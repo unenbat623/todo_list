@@ -56,7 +56,7 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
         className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] transition-opacity"
         onClick={onClose}
       />
-      <div className="fixed bottom-0 sm:top-0 right-0 h-fit max-h-[85dvh] sm:h-[100dvh] w-full sm:max-w-sm bg-[var(--surface)] border-t sm:border-l z-[110] shadow-2xl p-5 sm:p-6 flex flex-col gap-5 sm:gap-6 animate-in slide-in-from-bottom sm:slide-in-from-right duration-300 rounded-t-[2.5rem] sm:rounded-t-none pb-10 sm:pb-6">
+      <div className="fixed bottom-0 sm:top-14 md:top-16 right-0 h-fit max-h-[85dvh] sm:h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-4rem)] w-full sm:max-w-sm bg-[var(--surface)] border-t sm:border-l z-[110] shadow-2xl p-5 sm:p-6 flex flex-col gap-5 sm:gap-6 animate-in slide-in-from-bottom sm:slide-in-from-right duration-300 rounded-t-[2.5rem] sm:rounded-t-none pb-10 sm:pb-6">
         <div className="flex items-center justify-between px-2">
           <div className="space-y-0.5">
             <h2 className="text-xl font-bold">{t("common.themes")}</h2>

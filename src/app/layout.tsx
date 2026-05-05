@@ -24,7 +24,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icon-192.png",
-    apple: "/icon-512.png",
+    apple: [
+      { url: "/icon-192.png", sizes: "192x192" },
+      { url: "/icon-512.png", sizes: "512x512" },
+    ],
   },
   formatDetection: {
     telephone: false,
@@ -46,15 +49,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/icon-192.png" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/icon-512.png" sizes="512x512" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="VibeTodo" />
-      </head>
       <body
         className={`${inter.variable} ${oswald.variable} ${playfair.variable} ${robotoMono.variable} ${manrope.variable} ${montserrat.variable} ${lora.variable} antialiased`}
       >
