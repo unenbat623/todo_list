@@ -38,11 +38,14 @@ export function PWAInstallPrompt() {
   }, []);
 
   const handleInstallClick = async () => {
+    if (isIOS) {
+      alert('iOS дээр "Share" → "Add to Home Screen" товчийг ашиглана уу.');
+      return;
+    }
     if (!deferredPrompt) {
       alert("Installation is not fully supported in this browser. Try opening the site in Chrome or Safari, then use the browser menu to 'Add to Home Screen'.");
       return;
     }
-    
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
@@ -71,7 +74,7 @@ export function PWAInstallPrompt() {
               <p className="text-white/60 text-xs">Add to your home screen for the full premium experience.</p>
             </div>
           </div>
-          <button onClick={() => setIsVisible(false)} className="text-white/40 hover:text-white">
+          <button onClick={() => setIsVisible(false)} className="text-white/40 hover:text-white" title="Close">
             <X size={20} />
           </button>
         </div>

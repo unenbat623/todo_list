@@ -26,12 +26,15 @@ export default function Dashboard() {
   const [filter, setFilter] = useState<'all' | 'active' | 'done'>('all');
   const [isLoading, setIsLoading] = useState(true);
 
+  // Only fetch todos once when session is ready
   useEffect(() => {
+    if (!session) return;
     if (session?.user?.theme) {
       setTheme(session.user.theme as any);
     }
     fetchTodos();
-  }, [session]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.user?.theme]);
 
   const fetchTodos = async () => {
     try {
