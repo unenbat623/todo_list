@@ -185,7 +185,12 @@
 }
 
 @layer base {
+  html {
+    background-color: var(--bg);
+  }
+
   body {
+    min-height: 100dvh;
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font-body), sans-serif;

@@ -14,7 +14,7 @@ export function Topbar() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-14 md:h-16 border-b glass z-40 px-3 sm:px-4 flex items-center justify-between gap-2 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 h-[calc(3.5rem_+_env(safe-area-inset-top))] md:h-[calc(4rem_+_env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b glass z-40 px-3 sm:px-4 flex items-center justify-between gap-2 shadow-sm">
       {/* Logo */}
       <div className="flex items-center gap-2 shrink-0 group cursor-default">
         <div className="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-br from-[var(--accent)] to-[var(--text)] rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 duration-300 shadow-lg shadow-[var(--accent)]/20">

@@ -110,7 +110,7 @@ export default function Dashboard() {
   };
 
   return (
-    <main className="min-h-screen pt-20 md:pt-24 pb-12 px-2 sm:px-4">
+    <main className="min-h-screen pt-[calc(5rem_+_env(safe-area-inset-top))] md:pt-[calc(6rem_+_env(safe-area-inset-top))] pb-12 px-2 sm:px-4">
       <Topbar />
 
       <div className="max-w-3xl mx-auto w-full animate-in fade-in slide-in-from-bottom-8 duration-700">
