@@ -82,14 +82,14 @@ export function PWAInstallPrompt() {
         </div>
 
         {isIOS ? (
-          <div className="bg-white/5 rounded-2xl p-3 flex items-center gap-3 border border-white/5">
-            <div className="bg-white/10 w-8 h-8 rounded-lg flex items-center justify-center shrink-0">
-              <Download size={16} className="text-[#e8ff00]" />
-            </div>
-            <p className="text-[11px] text-white/80 leading-tight">
-              Tap <span className="font-bold text-white">"Share"</span> then <span className="font-bold text-white">"Add to Home Screen"</span> to install.
-            </p>
-          </div>
+          <Button
+            onClick={() => {
+              alert('iOS дээр суулгахын тулд:\n1. Доорх Share (⤴️) товчийг дарна\n2. "Add to Home Screen"-г сонгоно\nSafari ашиглаж байгаа эсэхээ шалгаарай.');
+            }}
+            className="w-full bg-[#e8ff00] text-black font-black rounded-xl py-6 text-base hover:scale-[1.02] transition-all active:scale-95"
+          >
+            "Share" → "Add to Home Screen"
+          </Button>
         ) : (
           <Button 
             onClick={handleInstallClick}
