@@ -49,7 +49,7 @@ export default function RootLayout({
         className={`${inter.variable} ${oswald.variable} ${playfair.variable} ${robotoMono.variable} ${manrope.variable} ${montserrat.variable} ${lora.variable} antialiased`}
       >
         <Providers>
-          {/* <PWARegistration /> */}
+          <PWARegistration />
           {children}
         </Providers>
       </body>
