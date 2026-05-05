@@ -33,9 +33,20 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Skip cross-origin requests
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).catch((err) => {
+        console.error('SW fetch failed:', err);
+        // Return a fallback or just let it fail naturally
+        return new Response('Network error occurred', { status: 408 });
+      });
     })
   );
 });
