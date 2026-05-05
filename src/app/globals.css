@@ -191,7 +191,13 @@
     font-family: var(--font-body), sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
-    @apply antialiased;
+    -webkit-tap-highlight-color: transparent;
+    @apply antialiased select-none;
+  }
+
+  /* Allow selection only in inputs */
+  input, textarea {
+    @apply select-text;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -199,7 +205,8 @@
   }
 
   * {
-    @apply border-[var(--border-color)];
+    @apply border-[var(--border-color)] outline-none;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

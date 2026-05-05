@@ -13,14 +13,29 @@ const montserrat = Montserrat({ subsets: ["latin", "cyrillic"], variable: "--fon
 const lora = Lora({ subsets: ["latin", "cyrillic"], variable: "--font-lora", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Todo App",
-  description: "A premium full-stack Todo app with theme switching",
+  title: "VibeTodo",
+  description: "Premium Minimalist Todo App",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
-    title: "Todo App",
+    statusBarStyle: "black-translucent",
+    title: "VibeTodo",
   },
+  icons: {
+    icon: "/icon-192.png",
+    apple: "/icon-512.png",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
