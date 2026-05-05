@@ -38,12 +38,14 @@ export function PWAInstallPrompt() {
   }, []);
 
   const handleInstallClick = async () => {
+    console.log('Install button clicked', { isIOS, deferredPrompt });
     if (isIOS) {
       alert('iOS дээр "Share" → "Add to Home Screen" товчийг ашиглана уу.');
       return;
     }
     if (!deferredPrompt) {
-      alert("Installation is not fully supported in this browser. Try opening the site in Chrome or Safari, then use the browser menu to 'Add to Home Screen'.");
+      alert("Install prompt боломжгүй байна. Энэ нь ихэвчлэн:");
+      alert("1. Та аль хэдийн суулгасан\n2. PWA шаардлага хангаагүй (manifest.json, sw.js, HTTPS)\n3. Chrome/Edge/Android дээр л албан ёсоор гарна\n\nDevTools → Application tab-аар PWA тохиргоогоо шалгана уу.");
       return;
     }
     try {
