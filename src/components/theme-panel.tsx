@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTheme } from "./theme-provider";
@@ -31,6 +33,22 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
   const { theme, setTheme } = useTheme();
   const { update } = useSession();
   const { t } = useI18n();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
 
   const handleThemeSelect = async (themeId: any) => {
     setTheme(themeId);
@@ -48,15 +66,15 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isMounted || !isOpen) return null;
 
-  return (
+  return createPortal(
     <>
       <div 
         className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100] transition-opacity"
         onClick={onClose}
       />
-      <div className="fixed bottom-0 sm:top-[calc(3.5rem_+_env(safe-area-inset-top))] md:top-[calc(4rem_+_env(safe-area-inset-top))] right-0 h-fit max-h-[calc(85dvh_-_env(safe-area-inset-top))] sm:h-[calc(100dvh_-_3.5rem_-_env(safe-area-inset-top))] md:h-[calc(100dvh_-_4rem_-_env(safe-area-inset-top))] w-full sm:max-w-sm bg-[var(--surface)] border-t sm:border-l z-[110] shadow-2xl p-5 sm:p-6 flex flex-col gap-5 sm:gap-6 animate-in slide-in-from-bottom sm:slide-in-from-right duration-300 rounded-t-[2.5rem] sm:rounded-t-none pb-[calc(2.5rem_+_env(safe-area-inset-bottom))] sm:pb-6">
+      <div className="fixed inset-x-0 bottom-0 max-h-[calc(85dvh_-_env(safe-area-inset-top))] sm:inset-x-auto sm:top-[calc(3.5rem_+_env(safe-area-inset-top))] md:top-[calc(4rem_+_env(safe-area-inset-top))] sm:right-0 sm:h-[calc(100dvh_-_3.5rem_-_env(safe-area-inset-top))] md:h-[calc(100dvh_-_4rem_-_env(safe-area-inset-top))] sm:max-h-none w-full sm:max-w-sm bg-[var(--surface)] border-t sm:border-l z-[110] shadow-2xl p-5 sm:p-6 flex flex-col gap-5 sm:gap-6 animate-in slide-in-from-bottom sm:slide-in-from-right duration-300 rounded-t-[2.5rem] sm:rounded-t-none pb-[calc(2.5rem_+_env(safe-area-inset-bottom))] sm:pb-6 overflow-hidden">
         <div className="flex items-center justify-between px-2">
           <div className="space-y-0.5">
             <h2 className="text-xl font-bold">{t("common.themes")}</h2>
@@ -67,7 +85,7 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
           </Button>
         </div>
 
-        <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 custom-scrollbar">
           <div className="grid grid-cols-2 gap-3 pb-6">
             {THEMES.map((t) => (
               <button
@@ -104,6 +122,7 @@ export function ThemePanel({ isOpen, onClose }: ThemePanelProps) {
           </p>
         </div>
       </div>
-    </>
+    </>,
+    document.body
   );
 }
