@@ -11,6 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid input" }, { status: 400 });
     }
 
+    console.log("Starting registration for:", username);
     await dbConnect();
     const existingUser = await User.findOne({ username });
 
@@ -25,9 +26,13 @@ export async function POST(req: Request) {
       password: hashedPassword,
     });
 
+    console.log("User registered successfully");
     return NextResponse.json({ message: "User registered successfully" }, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  } catch (error: any) {
+    console.error("Registration error detail:", error);
+    return NextResponse.json({ 
+      error: "Internal server error", 
+      details: error.message 
+    }, { status: 500 });
   }
 }
