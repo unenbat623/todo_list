@@ -12,29 +12,36 @@ interface StatsRowProps {
 
 export function StatsRow({ total, completed, remaining }: StatsRowProps) {
   const { t } = useI18n();
+  const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+
   return (
-    <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
-      <StatCard
-        label={t("common.total")}
-        value={total}
-        icon={<ListTodo size={20} />}
-        color="bg-blue-500"
-        className="animate-in fade-in slide-in-from-top duration-500 delay-100"
-      />
-      <StatCard
-        label={t("common.completed")}
-        value={completed}
-        icon={<CheckCircle2 size={20} />}
-        color="bg-green-500"
-        className="animate-in fade-in slide-in-from-top duration-500 delay-200"
-      />
-      <StatCard
-        label={t("common.remaining")}
-        value={remaining}
-        icon={<Circle size={20} />}
-        color="bg-orange-500"
-        className="animate-in fade-in slide-in-from-top duration-500 delay-300"
-      />
+    <div className="mb-6 space-y-3 sm:mb-8">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <StatCard
+          label={t("common.total")}
+          value={total}
+          icon={<ListTodo size={18} />}
+          className="animate-in fade-in slide-in-from-top duration-500 delay-100"
+        />
+        <StatCard
+          label={t("common.completed")}
+          value={completed}
+          icon={<CheckCircle2 size={18} />}
+          className="animate-in fade-in slide-in-from-top duration-500 delay-200"
+        />
+        <StatCard
+          label={t("common.remaining")}
+          value={remaining}
+          icon={<Circle size={18} />}
+          className="animate-in fade-in slide-in-from-top duration-500 delay-300"
+        />
+      </div>
+      <div className="h-2 rounded-full bg-[var(--surface)] shadow-inner">
+        <div
+          className="h-full rounded-full bg-[var(--accent)] transition-all duration-500"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
     </div>
   );
 }
@@ -43,36 +50,27 @@ function StatCard({
   label, 
   value, 
   icon, 
-  color,
   className 
 }: { 
   label: string, 
   value: number, 
   icon: React.ReactNode,
-  color: string,
   className?: string
 }) {
   return (
     <div className={cn(
-      "group bg-[var(--surface)] border p-4 sm:p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between card-shadow hover:-translate-y-1 transition-all duration-300 relative overflow-hidden",
+      "group bg-[var(--surface)] border p-3 sm:p-5 rounded-2xl flex min-h-[92px] flex-col justify-between card-shadow transition-all duration-300 hover:border-[var(--border-hover)] sm:min-h-[118px]",
       className
     )}>
-      {/* Decorative element */}
-      <div className={cn("absolute top-0 right-0 w-24 h-24 blur-3xl opacity-5 -mr-8 -mt-8 rounded-full", color)} />
-      
-      <div className="relative z-10 min-w-0 flex-1">
-        <p className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-[var(--muted)] mb-1 sm:mb-2">{label}</p>
-        <div className="flex items-baseline gap-2">
-          <p className="text-2xl sm:text-4xl font-black tracking-tighter italic">{value}</p>
-          <TrendingUp size={14} className={cn("hidden sm:block", color.replace('bg-', 'text-'))} />
-        </div>
+      <div className="flex items-center justify-between gap-2 text-[var(--muted)]">
+        <p className="truncate text-[10px] sm:text-xs font-black uppercase tracking-widest">{label}</p>
+        <span className="hidden rounded-lg bg-[var(--surface2)] p-1.5 text-[var(--text)] sm:inline-flex">
+          {icon}
+        </span>
       </div>
-      
-      <div className={cn(
-        "hidden sm:flex w-12 h-12 rounded-2xl items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 duration-300 relative z-10",
-        color
-      )}>
-        {icon}
+      <div className="flex items-end justify-between gap-2">
+        <p className="text-3xl sm:text-4xl font-black italic">{value}</p>
+        <TrendingUp size={14} className="hidden text-[var(--accent)] sm:block" />
       </div>
     </div>
   );

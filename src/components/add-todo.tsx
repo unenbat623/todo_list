@@ -30,24 +30,23 @@ export function AddTodo({ onAdd }: AddTodoProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3 mb-8 relative z-10">
-      <div className="flex-1 relative group">
+    <form onSubmit={handleSubmit} className="relative z-10 mb-6 flex gap-2 rounded-2xl border bg-[var(--bg)]/35 p-2 shadow-inner sm:gap-3">
+      <div className="relative flex-1">
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder={t("common.placeholder")}
-          className="w-full bg-[var(--surface2)] border-2 border-transparent rounded-full px-6 py-3.5 focus:outline-none focus:border-[var(--accent)] transition-all duration-300 shadow-inner"
+          className="h-12 w-full rounded-xl border border-transparent bg-[var(--surface2)] px-4 text-base font-semibold shadow-sm transition-all duration-300 placeholder:text-[var(--muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/15 sm:h-14 sm:px-5"
         />
-        <div className="absolute inset-0 rounded-full border border-white/5 pointer-events-none" />
       </div>
       <Button 
         type="submit" 
         disabled={isSubmitting || !text.trim()} 
-        className="shrink-0 h-[52px] px-8 rounded-full bg-gradient-to-r from-[var(--accent)] to-[var(--text)] text-[var(--bg)] font-black hover:scale-105 transition-all shadow-lg shadow-[var(--accent)]/20 active:scale-95"
+        className="h-12 shrink-0 rounded-xl bg-gradient-to-r from-[var(--accent)] to-[var(--text)] px-4 font-black text-[var(--bg)] shadow-lg shadow-[var(--accent)]/20 transition-all hover:scale-[1.02] active:scale-95 sm:h-14 sm:px-6"
       >
-        <Plus size={24} className="sm:mr-2" />
-        <span className="hidden sm:inline uppercase tracking-tighter italic">{t("common.add")}</span>
+        <Plus size={22} />
+        <span className="hidden sm:inline uppercase italic">{t("common.add")}</span>
       </Button>
     </form>
   );

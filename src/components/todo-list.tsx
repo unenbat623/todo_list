@@ -19,19 +19,20 @@ interface TodoItemProps {
 
 export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
   return (
-    <div className="group flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-[var(--surface)] border rounded-lg hover:border-[var(--border-hover)] transition-all animate-slide-up">
+    <div className="group flex min-h-[64px] items-center gap-3 rounded-2xl border bg-[var(--bg)]/30 p-3 transition-all animate-slide-up hover:border-[var(--border-hover)] hover:bg-[var(--surface2)]/35 sm:min-h-[72px] sm:p-4">
       <button 
         onClick={() => onToggle(todo.id, !todo.done)}
+        aria-label={todo.done ? "Mark as active" : "Mark as done"}
         className={cn(
-          "flex-shrink-0 transition-colors p-1",
+          "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full transition-colors",
           todo.done ? "text-[var(--accent)]" : "text-[var(--muted)] hover:text-[var(--text)]"
         )}
       >
-        {todo.done ? <CheckCircle size={20} className="sm:w-[22px] sm:h-[22px]" /> : <Circle size={20} className="sm:w-[22px] sm:h-[22px]" />}
+        {todo.done ? <CheckCircle size={24} /> : <Circle size={24} />}
       </button>
       
       <span className={cn(
-        "flex-1 text-sm sm:text-base transition-all leading-tight",
+        "flex-1 break-words text-[15px] font-semibold leading-snug transition-all sm:text-base",
         todo.done && "line-through text-[var(--muted)]"
       )}>
         {todo.text}
@@ -41,9 +42,10 @@ export function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
         variant="ghost"
         size="icon"
         onClick={() => onDelete(todo.id)}
-        className="opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:bg-red-50 w-8 h-8 sm:w-10 sm:h-10"
+        aria-label="Delete task"
+        className="h-10 w-10 shrink-0 rounded-full text-red-500 opacity-100 transition-opacity hover:bg-red-500/10 sm:opacity-0 sm:group-hover:opacity-100"
       >
-        <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+        <Trash2 size={18} />
       </Button>
     </div>
   );
@@ -69,9 +71,9 @@ export function TodoList({
 
   if (filteredTodos.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-        <div className="w-16 h-16 bg-[var(--surface2)] rounded-full flex items-center justify-center mb-4">
-          <Circle size={32} className="text-[var(--muted)]" />
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed bg-[var(--bg)]/20 px-4 py-12 text-center">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--surface2)]">
+          <Circle size={28} className="text-[var(--muted)]" />
         </div>
         <h3 className="text-lg font-bold mb-1">{t("common.noTasks")}</h3>
         <p className="text-sm text-[var(--muted)]">
@@ -82,7 +84,7 @@ export function TodoList({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       {filteredTodos.map((todo, index) => (
         <TodoItem 
           key={todo.id || index} 

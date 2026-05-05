@@ -10,6 +10,7 @@ import { useTheme } from "@/components/theme-provider";
 import { useI18n } from "@/components/i18n-provider";
 import { useToast } from "@/components/toast-provider";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Todo {
   id: string;
@@ -110,26 +111,28 @@ export default function Dashboard() {
   };
 
   return (
-    <main className="min-h-screen pt-[calc(5rem_+_env(safe-area-inset-top))] md:pt-[calc(6rem_+_env(safe-area-inset-top))] pb-12 px-2 sm:px-4">
+    <main className="min-h-screen px-3 pb-12 pt-[calc(5.25rem_+_env(safe-area-inset-top))] sm:px-4 md:pt-[calc(6.25rem_+_env(safe-area-inset-top))]">
       <Topbar />
 
-      <div className="max-w-3xl mx-auto w-full animate-in fade-in slide-in-from-bottom-8 duration-700">
+      <div className="mx-auto w-full max-w-4xl animate-in fade-in slide-in-from-bottom-8 duration-700">
         <StatsRow {...stats} />
         
-        <div className="bg-[var(--surface)] border border-[var(--border-hover)] rounded-[2rem] p-4 sm:p-8 card-shadow relative overflow-hidden">
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)] opacity-[0.02] blur-[100px] -mr-32 -mt-32 rounded-full pointer-events-none" />
-          
+        <section className="relative overflow-hidden rounded-[1.75rem] border border-[var(--border-hover)] bg-[var(--surface)] p-3 card-shadow sm:rounded-[2rem] sm:p-6">
           <AddTodo onAdd={handleAddTodo} />
 
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          <div className="mb-5 grid grid-cols-3 gap-2 rounded-2xl bg-[var(--bg)]/35 p-1.5">
             {(['all', 'active', 'done'] as const).map((f) => (
               <Button
                 key={f}
                 variant={filter === f ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter(f)}
-                className="capitalize rounded-full px-6"
+                className={cn(
+                  "h-10 rounded-xl border-transparent px-2 text-[13px] font-black capitalize shadow-none sm:px-6",
+                  filter === f
+                    ? "bg-[var(--accent)] text-[var(--bg)]"
+                    : "bg-transparent text-[var(--muted)] hover:bg-[var(--surface2)] hover:text-[var(--text)]"
+                )}
               >
                 {t(`common.${f}`)}
               </Button>
@@ -148,7 +151,7 @@ export default function Dashboard() {
               filter={filter}
             />
           )}
-        </div>
+        </section>
       </div>
     </main>
   );
